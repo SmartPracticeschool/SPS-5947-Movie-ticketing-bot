@@ -1,0 +1,517 @@
+{
+  "intents": [
+    {
+      "intent": "Enquiry",
+      "examples": [
+        {
+          "text": "List the names of Movies"
+        },
+        {
+          "text": "Movies"
+        },
+        {
+          "text": "What Movies?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Greetings",
+      "examples": [
+        {
+          "text": "Hai"
+        },
+        {
+          "text": "Hello"
+        },
+        {
+          "text": "Hi"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "enquir",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "How to pay",
+          "synonyms": [
+            "pay",
+            "payment",
+            "paymentplease",
+            "payment type"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "offers",
+          "synonyms": [
+            "break",
+            "discounts",
+            "interval snacks",
+            "special"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Enquire",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "1",
+          "synonyms": [
+            "one"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "2",
+          "synonyms": [
+            "Two"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "3",
+          "synonyms": [
+            "Three"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "cos",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "cost",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "List of Movies",
+          "synonyms": [
+            "movies",
+            "Screens available"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Screen1",
+          "synonyms": [
+            "Movie"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Screen2",
+          "synonyms": [
+            "another movie",
+            "Next movie"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "screen3",
+          "synonyms": [
+            "Last Screen",
+            "movie3"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "enquiry",
+      "values": [],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Offers",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Discounts",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_8_1603008195005",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "enquir",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "@enquir:offers",
+      "dialog_node": "node_10_1603011850882",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "enquire",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "@enquir:(How to pay)",
+      "dialog_node": "node_10_1603012403767",
+      "previous_sibling": "node_10_1603011850882"
+    },
+    {
+      "type": "standard",
+      "title": "enquiry",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "@Enquire",
+      "dialog_node": "node_3_1603009363773",
+      "previous_sibling": "node_5_1603011767183"
+    },
+    {
+      "type": "standard",
+      "dialog_node": "node_5_1603011767183",
+      "previous_sibling": "node_10_1603012403767"
+    },
+    {
+      "type": "standard",
+      "title": "#Greetings",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hi"
+              },
+              {
+                "text": "Hello"
+              },
+              {
+                "text": "Hey"
+              },
+              {
+                "text": "Hai"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          },
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Greetings",
+      "dialog_node": "node_8_1603008195005",
+      "previous_sibling": "node_3_1603009363773"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "BAHUBALI  TICKET COST IS 200 For each member above 10 Years  Ticket cost is 100 Rupees for each member below 5years The Ticket cost is Free for member below 5Years"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1603009363773",
+      "conditions": "@Enquire:1",
+      "dialog_node": "response_10_1603011649248",
+      "previous_sibling": "response_2_1603010691000"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "NISHABDAM TICKET COST IS 200 For each member above 10 Years  Ticket cost is 100 Rupees for each member below 5years The Ticket cost is Free for member below 5Years"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1603009363773",
+      "conditions": "@Enquire:2",
+      "dialog_node": "response_10_1603011661880",
+      "previous_sibling": "response_10_1603011649248"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "POPCORN COMBOPACK FOR SCREEN1  FIVE TICKETS RESERVATION.BURGER FAMILY PACK FOR SCREEN2  5TICKET RESERVATION.VEGROOLS FOR SCREEN3 5 TICKET  RESERVATION"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1603011850882",
+      "conditions": "@enquir:offers",
+      "dialog_node": "response_10_1603011942950"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "ANDROID KATTAPPA TICKET COST IS 200 For each member above 10 Years  Ticket cost is 100 Rupees for each member below 5years The Ticket cost is Free for member below 5Years"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1603009363773",
+      "conditions": "@Enquire:3",
+      "dialog_node": "response_1_1603011680265",
+      "previous_sibling": "response_10_1603011661880"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "SCREEN1:BAHUBALI         SCREEN2:NISHABDAM         SCREEN3:ANDROID KATTAPPA"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1603009363773",
+      "conditions": "@Enquire:(List of Movies)",
+      "dialog_node": "response_2_1603010691000",
+      "previous_sibling": "response_4_1603010478261"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "BAHUBALI  TICKET COST IS 200 For each member above 10 Years  Ticket cost is 100 Rupees for each member below 5years The Ticket cost is Free for member below 5Years"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1603009363773",
+      "conditions": "@Enquire:Screen1",
+      "dialog_node": "response_4_1603009514794",
+      "previous_sibling": "response_7_1603009395949"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "NISHABDAM TICKET COST IS 200 For each member above 10 Years  Ticket cost is 100 Rupees for each member below 5years The Ticket cost is Free for member below 5Years"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1603009363773",
+      "conditions": "@Enquire:Screen2",
+      "dialog_node": "response_4_1603010415037",
+      "previous_sibling": "response_4_1603009514794"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "ANDROID KATTAPPA TICKET COST IS 200 For each member above 10 Years  Ticket cost is 100 Rupees for each member below 5years The Ticket cost is Free for member below 5Years"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1603009363773",
+      "conditions": "@Enquire:screen3",
+      "dialog_node": "response_4_1603010478261",
+      "previous_sibling": "response_4_1603010415037"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "CREDIT CARD"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1603009363773",
+      "conditions": "@enquir:(How to pay)",
+      "dialog_node": "response_5_1603012561648",
+      "previous_sibling": "response_1_1603011680265"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "For Which Screen"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1603009363773",
+      "conditions": "@Enquire:cost",
+      "dialog_node": "response_7_1603009395949"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "CREDIT CARD "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1603012403767",
+      "conditions": "@enquir:(How to pay)",
+      "dialog_node": "response_8_1603012435557"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello. How can I help you?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "MOVETICKET BOT",
+  "language": "en",
+  "description": ""
+}
